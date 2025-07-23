@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//Note: ボード全体の管理（タイル位置・壁・他ブロックとの重なりなど）
+// Note: ボード全体の管理（タイル位置・壁・他ブロックとの重なりなど）
 public class BoardManager : MonoBehaviour
 {
     [SerializeField] private List<WallComponent> wallComponents = new();
@@ -40,23 +40,48 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    //Note: 指定タイルがボード内に存在するか
+    // Note: 指定タイルがボード内に存在するか
     public bool IsTileWithinBounds(Vector2Int pos)
     {
         return validTiles.Contains(pos);
     }
 
-    //Note: 枠外移動が許されるか（壁の色を使った制限含む）
+    // 色問わず壁の有無だけチェック
+    private bool IsWallExists(Vector2Int pos, Vector2Int dir)
+    {
+        WallDirection wallDir = GetDirectionFromVector(dir);
+
+        foreach (var wall in wallComponents)
+        {
+            if (wall.boardPosition == pos && wall.direction == wallDir)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    // Note: 枠外移動が許されるか（壁の色を使った制限含む）
     public bool AreTilesInsideBoard(List<Vector2Int> tiles, Color blockColor, Vector2Int moveDir)
     {
         foreach (var tile in tiles)
         {
             if (!IsTileWithinBounds(tile))
             {
-                //Note: 枠外に出ている → 同じ色の壁があるかチェック
                 Vector2Int from = tile - moveDir;
 
+                // 色が一致していない or 壁自体が無い場合はfalse
                 if (!IsWallSameColor(from, moveDir, blockColor))
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                // ボード内であっても、その方向に壁があり、色が一致しないなら通過禁止
+                Vector2Int from = tile - moveDir;
+                if (IsWallExists(from, moveDir) && !IsWallSameColor(from, moveDir, blockColor))
                 {
                     return false;
                 }
@@ -66,19 +91,15 @@ public class BoardManager : MonoBehaviour
         return true;
     }
 
-    //Note: 他ブロックと重なっているか
+    // Note: 他ブロックと重なっているか
     public bool AreTilesOccupied(List<Vector2Int> tiles, BlockController self)
     {
         BlockController[] allBlocks = FindObjectsByType<BlockController>(FindObjectsSortMode.None);
 
         foreach (var block in allBlocks)
         {
-            if (block == self)
-            {
-                continue;
-            }
+            if (block == self) continue;
 
-            //Note: 相手ブロックの占有マスは現在のboardPositionに基づく
             List<Vector2Int> otherTiles = block.GetOccupiedTiles();
 
             foreach (var tile in tiles)
@@ -93,14 +114,24 @@ public class BoardManager : MonoBehaviour
         return false;
     }
 
-    //Note: 指定位置に指定方向の同色の壁があるか
+    //  色を誤差許容で比較する
+    private bool IsColorApproximately(Color a, Color b, float tolerance = 0.01f)
+    {
+        return Mathf.Abs(a.r - b.r) < tolerance &&
+               Mathf.Abs(a.g - b.g) < tolerance &&
+               Mathf.Abs(a.b - b.b) < tolerance;
+    }
+
+    // Note: 指定位置に指定方向の同色の壁があるか
     public bool IsWallSameColor(Vector2Int pos, Vector2Int dir, Color color)
     {
+        WallDirection wallDir = GetDirectionFromVector(dir);
+
         foreach (var wall in wallComponents)
         {
             if (wall.boardPosition == pos &&
-                wall.direction == GetDirectionFromVector(dir) &&
-                wall.wallColor == color)
+                wall.direction == wallDir &&
+                IsColorApproximately(wall.wallColor, color))
             {
                 return true;
             }
@@ -108,6 +139,7 @@ public class BoardManager : MonoBehaviour
         return false;
     }
 
+    // Note: Vector2Int方向をWallDirectionに変換
     private WallDirection GetDirectionFromVector(Vector2Int dir)
     {
         if (dir == Vector2Int.up) return WallDirection.Up;
@@ -115,7 +147,6 @@ public class BoardManager : MonoBehaviour
         if (dir == Vector2Int.left) return WallDirection.Left;
         if (dir == Vector2Int.right) return WallDirection.Right;
 
-        Debug.LogWarning($"不正な方向: {dir}");
         return WallDirection.Up;
     }
 }

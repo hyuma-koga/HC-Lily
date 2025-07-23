@@ -14,7 +14,15 @@ public class WallComponent : MonoBehaviour
     public WallDirection direction;   // Ç«ÇÃï˚å¸Ç…ï«Ç™ë∂ç›Ç∑ÇÈÇ©
     public Color wallColor;
 
-#if UNITY_EDITOR
+    private void Start()
+    {
+        var renderer = GetComponent<Renderer>();
+        if (renderer != null)
+        {
+            wallColor = renderer.material.color;
+        }
+    }
+
     private void OnValidate()
     {
         boardPosition = new Vector2Int(
@@ -22,5 +30,4 @@ public class WallComponent : MonoBehaviour
             Mathf.FloorToInt(transform.position.z)
         );
     }
-#endif
 }
