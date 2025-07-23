@@ -18,7 +18,7 @@ public class BlockController : MonoBehaviour
 
     private static readonly Dictionary<BlockShapeType, List<Vector2Int>> shapeOffsets = new()
 {
-    // size 1x1
+    // size 2x2
     { BlockShapeType.Square, new List<Vector2Int> { new(0, 0), new(1, 0), new(0, 1), new(1, 1) } },
 
     // size 2x1 ‰¡’·
@@ -27,8 +27,8 @@ public class BlockController : MonoBehaviour
     // LŽš (2x2)
     { BlockShapeType.LShape, new List<Vector2Int> { new(0,0), new(1,0), new(0,1) } },
 
-    // ZŽš (2x2)
-    { BlockShapeType.ZShape, new List<Vector2Int> { new(0,0), new(1,0), new(1,1) } },
+    // ZŽš (3x2)
+    { BlockShapeType.ZShape, new List<Vector2Int> { new(0,1), new(1,0), new(1,1), new(2, 0) } },
 };
 
     public List<Vector2Int> GetOccupiedTiles(Vector2Int? testPos = null)
@@ -56,9 +56,9 @@ public class BlockController : MonoBehaviour
         Vector3 offset = shapeType switch
         {
             BlockShapeType.Square => new Vector3(0.5f, 0f, 0.5f),
-            BlockShapeType.Rectangle => new Vector3(0.5f, 0f, 0.5f),
+            BlockShapeType.Rectangle => new Vector3(0.5f, 0f, 0f),
             BlockShapeType.LShape => new Vector3(0f, 0f, 0f),
-            BlockShapeType.ZShape => new Vector3(0f, 0f, 0f),
+            BlockShapeType.ZShape => new Vector3(1f, 0f, 0.5f),
             _ => Vector3.zero
         };
         return basePos + offset;
