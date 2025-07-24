@@ -130,6 +130,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9da9377df11c24648a5daca346e9da6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minCheckPos: {x: 0, y: 0}
+  maxCheckPos: {x: 4, y: 5}
 --- !u!1 &5029773054997770027
 GameObject:
   m_ObjectHideFlags: 0

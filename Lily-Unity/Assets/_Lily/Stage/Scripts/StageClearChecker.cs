@@ -1,10 +1,20 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class StageClearChecker : MonoBehaviour
 {
     private BoardManager boardManager;
     private bool hasCleared = false;
+
+    [Header("ステージクリア判定対象の座標範囲")]
+    public Vector2Int minCheckPos;
+    public Vector2Int maxCheckPos;
+
+    private void Awake()
+    {
+        enabled = false;
+    }
 
     private void Start()
     {
@@ -14,14 +24,9 @@ public class StageClearChecker : MonoBehaviour
 
     private IEnumerator EnableCheckerAfterDelay()
     {
-        yield return null; 
-        yield return null; // 必要なら2フレーム
+        yield return null;
+        yield return null; // 2フレーム待機で安全
         enabled = true;
-    }
-
-    private void Awake()
-    {
-        enabled = false;
     }
 
     private void Update()
@@ -31,28 +36,34 @@ public class StageClearChecker : MonoBehaviour
         if (IsStageCleared())
         {
             hasCleared = true;
+            Debug.Log(" ステージクリア！");
             GameManager.Instance.OnGameClear();
         }
     }
 
     private bool IsStageCleared()
     {
-        var targetTiles = boardManager.GetAllBoardTilePositions();
         var blocks = FindObjectsByType<BlockController>(FindObjectsSortMode.None);
 
         foreach (var block in blocks)
         {
-            var occupied = block.GetOccupiedTiles();
+            var tiles = block.GetOccupiedTiles();
 
-            foreach (var tile in occupied)
+            foreach (var tile in tiles)
             {
-                if (targetTiles.Contains(tile))
+                if (IsWithinCheckArea(tile))
                 {
-                    return false;
+                    return false; // ブロックがまだチェック範囲内にある
                 }
             }
         }
 
-        return true;
+        return true; // どのブロックもチェック範囲に存在しない
+    }
+
+    private bool IsWithinCheckArea(Vector2Int tilePos)
+    {
+        return tilePos.x >= minCheckPos.x && tilePos.x <= maxCheckPos.x &&
+               tilePos.y >= minCheckPos.y && tilePos.y <= maxCheckPos.y;
     }
 }
