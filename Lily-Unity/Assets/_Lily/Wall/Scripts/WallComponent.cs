@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public enum WallDirection
 {
@@ -8,26 +9,46 @@ public enum WallDirection
     Right
 }
 
+[ExecuteAlways]
 public class WallComponent : MonoBehaviour
 {
-    public Vector2Int boardPosition;  // 壁が隣接するタイルの位置（左下など）
-    public WallDirection direction;   // どの方向に壁が存在するか
+    public Vector2Int boardPosition;
+    public WallDirection[] directions;
     public Color wallColor;
+    public Vector2Int size = new Vector2Int(1, 1);
+
+    // この壁が占有するすべてのタイル座標を返す
+    public List<Vector2Int> GetOccupiedPositions()
+    {
+        List<Vector2Int> positions = new();
+
+        for (int dx = 0; dx < size.x; dx++)
+        {
+            for (int dy = 0; dy < size.y; dy++)
+            {
+                positions.Add(new Vector2Int(boardPosition.x + dx, boardPosition.y + dy));
+            }
+        }
+
+        return positions;
+    }
 
     private void Start()
     {
-        var renderer = GetComponent<Renderer>();
-        if (renderer != null)
-        {
-            wallColor = renderer.material.color;
-        }
+        UpdateWallColor();
     }
 
     private void OnValidate()
     {
-        boardPosition = new Vector2Int(
-            Mathf.FloorToInt(transform.position.x),
-            Mathf.FloorToInt(transform.position.z)
-        );
+        UpdateWallColor();
+    }
+
+    private void UpdateWallColor()
+    {
+        var renderer = GetComponent<Renderer>();
+        if (renderer != null)
+        {
+            wallColor = renderer.sharedMaterial?.color ?? Color.white;
+        }
     }
 }

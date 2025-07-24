@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 199984192127814521}
   - component: {fileID: 387000602001612317}
   - component: {fileID: 7394646953952104912}
-  - component: {fileID: 6910980372929060033}
+  - component: {fileID: 8654630681607038731}
   m_Layer: 0
   m_Name: Pb_Block_L
   m_TagString: Untagged
@@ -94,7 +94,7 @@ MonoBehaviour:
   boardPosition: {x: 0, y: 0}
   size: {x: 1, y: 1}
   blockColor: {r: 1, g: 1, b: 1, a: 1}
---- !u!114 &6910980372929060033
+--- !u!114 &8654630681607038731
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 377119820892008709}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee2c5561ec513bc4a8011aa490d31ad2, type: 3}
+  m_Script: {fileID: 11500000, guid: ee987405e37a918428a538e87e17e125, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6906205621958878253

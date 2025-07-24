@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 1961785334752472429}
   - component: {fileID: 2574297775041872051}
   - component: {fileID: 7640501936645395988}
-  - component: {fileID: 716741257955834329}
+  - component: {fileID: 4893713582124751736}
+  - component: {fileID: 3079372216415824822}
   m_Layer: 0
   m_Name: Pb_Block_Z
   m_TagString: Untagged
@@ -94,7 +95,7 @@ MonoBehaviour:
   boardPosition: {x: 0, y: 0}
   size: {x: 1, y: 1}
   blockColor: {r: 0, g: 0, b: 0, a: 0}
---- !u!114 &716741257955834329
+--- !u!114 &4893713582124751736
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -103,7 +104,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 3537399433745506009}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee2c5561ec513bc4a8011aa490d31ad2, type: 3}
+  m_Script: {fileID: 11500000, guid: ee987405e37a918428a538e87e17e125, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3079372216415824822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3537399433745506009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee987405e37a918428a538e87e17e125, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &5089483573275792447

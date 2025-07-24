@@ -18,12 +18,19 @@ public class BlockPlacer : MonoBehaviour
     {
         List<Vector2Int> targetTiles = block.GetOccupiedTiles(targetPos);
 
+        if (moveDir == Vector2Int.zero ||
+        Mathf.Abs(moveDir.x) + Mathf.Abs(moveDir.y) != 1)
+        {
+            Debug.LogWarning($" 無効な移動方向: {moveDir}");
+            return false;
+        }
+
         foreach (var tile in targetTiles)
         {
+            Vector2Int from = tile - moveDir;
+
             if (!boardManager.IsTIleWithinBounds(tile))
             {
-                Vector2Int from = tile - moveDir;
-                
                 if (!wallManager.IsSameColorWall(from, moveDir, block.blockColor))
                 {
                     Debug.LogWarning($" 枠外 + 色不一致 or 壁なし: {tile} ← {from} dir:{moveDir}");
@@ -32,11 +39,19 @@ public class BlockPlacer : MonoBehaviour
             }
             else
             {
-                Vector2Int from = tile - moveDir;
-
-                if (wallManager.ExistsWall(from, moveDir) && !wallManager.IsSameColorWall(from, moveDir, block.blockColor))
+                // 移動元からの方向に壁があるか
+                if (wallManager.ExistsWall(from, moveDir) &&
+                    !wallManager.IsSameColorWall(from, moveDir, block.blockColor))
                 {
-                    Debug.LogWarning($" 枠内だけど壁色不一致: {tile} ← {from} dir:{moveDir}");
+                    Debug.LogWarning($" 枠内だけど壁色不一致（進行方向）: {tile} ← {from} dir:{moveDir}");
+                    return false;
+                }
+
+                // 移動先に、逆方向の壁があるか
+                if (wallManager.ExistsWall(tile, -moveDir) &&
+                    !wallManager.IsSameColorWall(tile, -moveDir, block.blockColor))
+                {
+                    Debug.LogWarning($" 枠内だけど壁色不一致（逆方向）: {tile} ← {from} dir:-{moveDir}");
                     return false;
                 }
             }
@@ -44,13 +59,14 @@ public class BlockPlacer : MonoBehaviour
 
         if (IsOverlapping(block, targetTiles))
         {
-            Debug.LogWarning("他ブロックと重なっている");
+            Debug.LogWarning(" 他ブロックと重なっている");
             return false;
         }
 
         Debug.Log(" 配置可能（CanPlace 通過）");
         return true;
     }
+
 
     private bool IsOverlapping(BlockController block, List<Vector2Int> targetTiles)
     {

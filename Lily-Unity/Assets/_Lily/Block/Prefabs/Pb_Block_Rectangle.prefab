@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5971870196240951363}
   - component: {fileID: 2112393991642740412}
   - component: {fileID: 7636684330478416828}
-  - component: {fileID: 1433306304484940203}
+  - component: {fileID: 22852392095783999}
   m_Layer: 0
   m_Name: Pb_Block_Rectangle
   m_TagString: Untagged
@@ -72,7 +72,7 @@ MonoBehaviour:
   boardPosition: {x: 0, y: 0}
   size: {x: 2, y: 1}
   blockColor: {r: 1, g: 1, b: 1, a: 1}
---- !u!114 &1433306304484940203
+--- !u!114 &22852392095783999
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -81,7 +81,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3708329377196159488}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee2c5561ec513bc4a8011aa490d31ad2, type: 3}
+  m_Script: {fileID: 11500000, guid: ee987405e37a918428a538e87e17e125, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &6175690089219291347
