@@ -4,9 +4,9 @@ using UnityEngine;
 public class BlockLiftMover : MonoBehaviour
 {
     private BlockController controller;
-    private Camera mainCamera;
-    private BlockPlacer blockPlacer;
-    private float liftHeight = 0f;
+    private Camera          mainCamera;
+    private BlockPlacer     blockPlacer;
+    private float           liftHeight = 0f;
 
     private void Start()
     {
@@ -17,11 +17,8 @@ public class BlockLiftMover : MonoBehaviour
 
     private void OnMouseDrag()
     {
-        Debug.Log("Dragging block");
-
         if (!mainCamera || !blockPlacer || !controller)
         {
-            Debug.LogError(" BlockLiftMover dependencies missing.");
             return;
         }
 
@@ -32,18 +29,11 @@ public class BlockLiftMover : MonoBehaviour
             Vector2Int gridPos = BoardCoordinateHelper.WorldToBoard(hit.point);
             Vector2Int moveDir = gridPos - controller.boardPosition;
 
-            Debug.Log($"Hit board at: {gridPos}, MoveDir: {moveDir}");
-
             if (blockPlacer.CanPlace(controller, gridPos, moveDir))
             {
-                Debug.Log(" CanPlace: OK Å® Moving");
                 Vector3 liftedPos = BoardCoordinateHelper.BoardToWorld(gridPos, controller.shapeType, transform.position.y + liftHeight);
                 transform.position = liftedPos;
                 controller.MoveTo(gridPos);
-            }
-            else
-            {
-                Debug.LogWarning(" CanPlace: NG Å® Blocked");
             }
         }
     }

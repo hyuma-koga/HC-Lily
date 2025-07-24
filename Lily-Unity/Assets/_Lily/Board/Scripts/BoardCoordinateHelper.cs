@@ -1,6 +1,6 @@
 using UnityEngine;
 
-//À•W•ÏŠ·‚Æ•ûŒüŒvŽZ
+//Note: À•W•ÏŠ·‚Æ•ûŒüŒvŽZ
 public static class BoardCoordinateHelper
 {
     public static Vector2Int WorldToBoard(Vector3 worldPosition)
@@ -14,6 +14,7 @@ public static class BoardCoordinateHelper
     public static Vector3 BoardToWorld(Vector2Int boardPosition, BlockShapeType shapeType, float y = 0f)
     {
         Vector3 basePos = new Vector3(boardPosition.x, y, boardPosition.y);
+
         Vector3 offset = shapeType switch
         {
             BlockShapeType.Square => new Vector3(0.5f, 0f, 0.5f),

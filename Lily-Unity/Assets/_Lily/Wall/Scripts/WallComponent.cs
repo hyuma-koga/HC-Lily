@@ -17,7 +17,7 @@ public class WallComponent : MonoBehaviour
     public Color wallColor;
     public Vector2Int size = new Vector2Int(1, 1);
 
-    // この壁が占有するすべてのタイル座標を返す
+    //Note: この壁が占有するすべてのタイル座標を返す
     public List<Vector2Int> GetOccupiedPositions()
     {
         List<Vector2Int> positions = new();

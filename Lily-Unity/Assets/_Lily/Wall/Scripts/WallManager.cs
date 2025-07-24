@@ -7,8 +7,9 @@ public class WallManager : MonoBehaviour
 {
     private List<WallComponent> wallComponents = new();
 
-    private void Awake()
+    public void ReloadWalls()
     {
+        wallComponents.Clear();
         wallComponents.AddRange(FindObjectsByType<WallComponent>(FindObjectsSortMode.None));
     }
 
@@ -39,10 +40,10 @@ public class WallManager : MonoBehaviour
             if (wall.GetOccupiedPositions().Contains(pos) &&
                 !IsColorApproximately(wall.wallColor, blockColor))
             {
-                return true; // 異色の壁がある → 通行不可
+                return true;
             }
         }
-        return false; // 同色 or 壁なし → 通行可
+        return false;
     }
 
     public bool IsSameColorWall(Vector2Int pos, Vector2Int dir, Color color)
