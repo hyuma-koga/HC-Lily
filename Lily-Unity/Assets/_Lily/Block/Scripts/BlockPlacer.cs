@@ -28,7 +28,7 @@ public class BlockPlacer : MonoBehaviour
         {
             Vector2Int from = tile - moveDir;
 
-            if (!boardManager.IsTIleWithinBounds(tile))
+            if (!boardManager.IsTileWithinBounds(tile))
             {
                 if (!wallManager.IsSameColorWall(from, moveDir, block.blockColor))
                 {
@@ -61,7 +61,7 @@ public class BlockPlacer : MonoBehaviour
         return true;
     }
 
-
+    //Note: ブロックの占有マスがすでに他で使われているマスと重なっていたらNG
     private bool IsOverlapping(BlockController block, List<Vector2Int> targetTiles)
     {
         BlockController[] allBlocks = FindObjectsByType<BlockController>(FindObjectsSortMode.None);

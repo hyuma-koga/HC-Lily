@@ -55,6 +55,7 @@ public class BlockController : MonoBehaviour
         boardPosition = BoardCoordinateHelper.WorldToBoard(transform.position);
     }
 
+    //Note: ブロックがボード上のどのタイルを占有しているか
     public List<Vector2Int> GetOccupiedTiles(Vector2Int? testPos = null)
     {
         Vector2Int basePos = testPos ?? boardPosition;
@@ -79,7 +80,7 @@ public class BlockController : MonoBehaviour
 
         foreach (var tile in tiles)
         {
-            if (board.IsTIleWithinBounds(tile))
+            if (board.IsTileWithinBounds(tile))
             {
                 return true;
             }

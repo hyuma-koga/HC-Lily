@@ -67,6 +67,7 @@ public class WallManager : MonoBehaviour
         return false;
     }
 
+    //Note: ìØêFÇ©Ç«Ç§Ç©
     private bool IsColorApproximately(Color a, Color b, float tolerance = 0.01f)
     {
         return Mathf.Abs(a.r - b.r) < tolerance &&

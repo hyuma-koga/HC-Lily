@@ -24,6 +24,7 @@ public class StageManager : MonoBehaviour
         }
 
         var wallManager = FindFirstObjectByType<WallManager>();
+
         if (wallManager != null)
         {
             wallManager.ReloadWalls();
@@ -31,7 +32,7 @@ public class StageManager : MonoBehaviour
 
         foreach (var block in currentStageInstance.GetComponentsInChildren<BlockController>())
         {
-            block.InitializePosition(); // ← Start() ではなくこのように別メソッドで初期化するのが安全
+            block.InitializePosition();
         }
     }
 

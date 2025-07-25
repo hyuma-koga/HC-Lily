@@ -32,7 +32,7 @@ public class BoardManager : MonoBehaviour
         height = maxY + 1;
     }
 
-    public bool IsTIleWithinBounds(Vector2Int pos)
+    public bool IsTileWithinBounds(Vector2Int pos)
     {
         return validTiles.Contains(pos);
     }

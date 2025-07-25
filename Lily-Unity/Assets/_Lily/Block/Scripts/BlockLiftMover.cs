@@ -1,6 +1,6 @@
 using UnityEngine;
 
-//Note: ドラッグ時の持ち上げ・移動・着地
+//Note: ドラッグ時の移動・着地
 public class BlockLiftMover : MonoBehaviour
 {
     private BlockController controller;
