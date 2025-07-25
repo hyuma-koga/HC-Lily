@@ -12,29 +12,34 @@ public enum BlockShapeType
 public class BlockController : MonoBehaviour
 {
     public BlockShapeType shapeType;
-    public Vector2Int     boardPosition;
-    public Vector2Int     size = Vector2Int.one;
-    public Color          blockColor;
-    private BoardManager  boardManager;
+    public Vector2Int boardPosition;
+    public Vector2Int size = Vector2Int.one;
+    public Color blockColor;
+    public Renderer blockRenderer; // BlockVisual ÇéQè∆
+
+    private BoardManager boardManager;
 
     private static readonly Dictionary<BlockShapeType, List<Vector2Int>> shapeOffsets = new()
     {
-        { BlockShapeType.Square, new List<Vector2Int> { new(0, 0), new(1, 0), new(0, 1), new(1, 1) } },
-
+        { BlockShapeType.Square,    new List<Vector2Int> { new(0, 0), new(1, 0), new(0, 1), new(1, 1) } },
         { BlockShapeType.Rectangle, new List<Vector2Int> { new(0, 0), new(1, 0) } },
-
-        { BlockShapeType.LShape, new List<Vector2Int> { new(0,0), new(1,0), new(0,1) } },
-
-        { BlockShapeType.ZShape, new List<Vector2Int> { new(0,1), new(1,0), new(1,1), new(2, 0) } },
+        { BlockShapeType.LShape,    new List<Vector2Int> { new(0, 0), new(1, 0), new(0, 1) } },
+        { BlockShapeType.ZShape,    new List<Vector2Int> { new(0, 1), new(1, 0), new(1, 1), new(2, 0) } },
     };
+
+    private void Awake()
+    {
+        if (blockRenderer == null)
+        {
+            blockRenderer = GetComponentInChildren<Renderer>();
+        }
+    }
 
     private void Start()
     {
-        var renderer = GetComponentInChildren<Renderer>();
-
-        if (renderer != null)
+        if (blockRenderer != null)
         {
-            blockColor = renderer.material.color;
+            blockColor = blockRenderer.material.color;
         }
     }
 

@@ -93,7 +93,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8626457566660832777}
-  - component: {fileID: 1377355725039806471}
+  - component: {fileID: -2887584864842214316}
   m_Layer: 0
   m_Name: Pb_Stage_0002
   m_TagString: Untagged
@@ -118,7 +118,7 @@ Transform:
   - {fileID: 2173238517256404416}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1377355725039806471
+--- !u!114 &-2887584864842214316
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minCheckPos: {x: 0, y: 0}
-  maxCheckPos: {x: 4, y: 5}
+  maxCheckPos: {x: 0, y: 0}
 --- !u!1 &5029773054997770027
 GameObject:
   m_ObjectHideFlags: 0
